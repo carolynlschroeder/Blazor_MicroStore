@@ -1,0 +1,54 @@
+﻿@using Blazor_MicroStore.Data
+@using Blazor_MicroStore.Components
+@using Blazor_MicroStore.Services
+@inject ComputerStore Store;
+@page "/"
+
+@if (categories != null)
+{
+    <div class="d-flex">
+        <div class="w-25">
+            @if (categories != null)
+            {
+                foreach (var c in categories)
+                {
+                    <div class="p-3">
+                        <input type="checkbox" @onchange="@((eventArgs) => CheckboxChecked(c.Id, eventArgs.Value))" /> @c.Name<br />
+                    </div>
+                }
+            }
+        </div>
+        <div class="w-75"><Images CategoryList="CategoryList" /></div>
+    </div>
+}
+
+
+
+@code {
+    public List<int> CategoryList { get; set; } = new List<int>();
+    public List<Category>? categories { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await Store.GetCategories();
+
+    }
+
+    void CheckboxChecked(int categoryId, object checkedValue)
+    {
+        if ((bool)checkedValue)
+        {
+            if (!CategoryList.Contains(categoryId))
+            {
+                CategoryList.Add(categoryId);
+            }
+        }
+        else
+        {
+            if (CategoryList.Contains(categoryId))
+            {
+                CategoryList.Remove(categoryId);
+            }
+        }
+    }
+}

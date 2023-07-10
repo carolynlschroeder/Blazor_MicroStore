@@ -1,0 +1,34 @@
+﻿@using Blazor_MicroStore.Data
+@using Blazor_MicroStore.Components
+@using Blazor_MicroStore.Services
+@inject ComputerStore Store;
+
+
+@if (items == null)
+{
+    <p>Loading items...</p>
+}
+else
+{
+<ul class="item-list">
+    @foreach (var item in items)
+    {
+    <li>
+      <ItemDisplay item="item" />
+    </li>
+    }
+</ul>
+}
+
+@code {
+    IEnumerable<Item>? items;
+
+    [Parameter]
+    public List<int>? CategoryList { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        items = await Store.GetItems(CategoryList);
+    }
+
+}

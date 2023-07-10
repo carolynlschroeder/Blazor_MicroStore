@@ -1,0 +1,26 @@
+﻿﻿.item-display {
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 12px;
+}
+
+.item-display img {
+    width: 100%;
+}
+
+.item-display-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 8px 0px 8px;
+}
+
+.item-display-name {
+    margin: 1rem 0 1rem 0;
+}
+
+.item-display-description {
+    margin-top: 0;
+}
