@@ -1,0 +1,12 @@
+﻿.price{
+    color:red;
+    padding-top:25%;
+}
+
+.details img{
+    max-width: 100%
+}
+.item > .star-rating-avg {
+    text-align: center;
+    margin: 5px auto;
+}

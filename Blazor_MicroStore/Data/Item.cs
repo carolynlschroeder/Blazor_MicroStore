@@ -22,6 +22,7 @@ namespace Blazor_MicroStore.Data
         public string ImageUrl { get; set; }
         [Required]
         public decimal Price { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 
 }

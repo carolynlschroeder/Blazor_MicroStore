@@ -3,6 +3,7 @@
 @using Blazor_MicroStore.Services
 @inject ComputerStore Store;
 @page "/"
+@attribute [RenderModeServer]
 
 @if (categories != null)
 {
@@ -25,8 +26,8 @@
 
 
 @code {
-    public List<int> CategoryList { get; set; } = new List<int>();
-    public List<Category>? categories { get; set; }
+    public List<int> CategoryList = new List<int>();
+    public List<Category>? categories;
 
     protected override async Task OnInitializedAsync()
     {

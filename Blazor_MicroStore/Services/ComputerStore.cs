@@ -30,5 +30,19 @@ namespace Blazor_MicroStore.Services
                 return Task.FromResult(context.Items.Where(i => categoryList.Contains(i.CategoryId)).ToList());
             }
         }
+
+        public Task<Item?> GetItem(int id)
+        {
+            ApplicationDbContext context = _contextFactory.CreateDbContext();
+            var item = context.Items.Include(i => i.Reviews).FirstOrDefault(i => i.Id == id);
+            return Task.FromResult(item);
+        }
+
+        public void AddReview(Review review)
+        {
+            ApplicationDbContext context = _contextFactory.CreateDbContext();
+            context.Reviews.Add(review);
+            context.SaveChanges();
+        }
     }
 }

@@ -1,0 +1,62 @@
+﻿@using Blazor_MicroStore.Data
+@using Blazor_MicroStore.Components
+@using Blazor_MicroStore.Services
+@page "/details/{itemId}"
+@inject ComputerStore Store;
+@attribute [RenderModeServer]
+
+
+<div class="item">
+    @if (item == null)
+    {
+        <h1>Item not found!</h1>
+    }
+    else
+    {
+        <h1>@item.Name</h1>
+        <h5>@item.Description</h5>
+        <div class="row details">
+            <div class="col">
+                <div><img src="@item.ImageUrl" class="image-fluid" /></div>
+            </div>
+            <div class="col">
+                <div class="display-1 price">$@item.Price</div>
+            </div>
+        </div>
+           <div class="star-rating-avg">
+            <StarRating Value="@AverageStarReview" />
+        </div>
+        <StarRatingReviews Reviews="item.Reviews" OnSubmitReview="OnSubmitReview" />
+    }
+</div>
+
+@code {
+    Item? item;
+
+    [Parameter]
+    [EditorRequired]
+    public string ItemId { get; set; }
+
+    double AverageStarReview = 0;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        ArgumentNullException.ThrowIfNull(ItemId);
+        item = await Store.GetItem(Convert.ToInt32(ItemId));
+        if (item.Reviews.Any())
+        {
+            AverageStarReview = item.Reviews.Sum(i => i.Rating) / item.Reviews.Count;
+        }
+
+    }
+
+    
+    async Task OnSubmitReview(Review review)
+    {
+        review.ItemId = item.Id;       
+        Store.AddReview(review);
+        item = await Store.GetItem(item.Id);
+        AverageStarReview = item.Reviews.Sum(i => i.Rating) / item.Reviews.Count;
+    }
+}
+

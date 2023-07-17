@@ -10,14 +10,16 @@
 }
 else
 {
-<ul class="item-list">
-    @foreach (var item in items)
-    {
-    <li>
-      <ItemDisplay item="item" />
-    </li>
-    }
-</ul>
+    <ul class="item-list">
+        @foreach (var item in items)
+        {
+            <li class="item-list-item">
+                <a href="/details/@item.Id">
+                    <ItemDisplay item="item" />
+                </a>
+            </li>
+        }
+    </ul>
 }
 
 @code {
