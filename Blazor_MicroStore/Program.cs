@@ -10,7 +10,7 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddServerComponents();
+    .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<ComputerStore>();
 
@@ -27,7 +27,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+app.UseAntiforgery();
 
-app.MapRazorComponents<App>();
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
 
 app.Run();

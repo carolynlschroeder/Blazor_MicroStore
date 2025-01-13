@@ -3,8 +3,7 @@
 @using Blazor_MicroStore.Services
 @page "/details/{itemId}"
 @inject ComputerStore Store;
-@attribute [RenderModeServer]
-
+@rendermode InteractiveServer
 
 <div class="item">
     @if (item == null)
