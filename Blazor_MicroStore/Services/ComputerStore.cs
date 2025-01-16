@@ -24,10 +24,10 @@ namespace Blazor_MicroStore.Services
             ApplicationDbContext context = _contextFactory.CreateDbContext();
             if (!categoryList.Any())
             {
-                return Task.FromResult(context.Items.ToList());
+                return Task.FromResult(context.Items.OrderBy(i=>i.CategoryId).ThenBy(i=>i.Price).ToList());
             }
             else            {
-                return Task.FromResult(context.Items.Where(i => categoryList.Contains(i.CategoryId)).ToList());
+                return Task.FromResult(context.Items.Where(i => categoryList.Contains(i.CategoryId)).OrderBy(i=>i.CategoryId).ThenBy(i=>i.Price).ToList());
             }
         }
 

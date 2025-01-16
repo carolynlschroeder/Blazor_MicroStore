@@ -19,7 +19,7 @@ namespace Blazor_MicroStore.Data
         [StringLength(256)]
         public string Description { get; set; }
         [StringLength(50)]
-        public string ImageUrl { get; set; }
+        public string Src { get; set; }
         [Required]
         public decimal Price { get; set; }
         public List<Review> Reviews { get; set; }
